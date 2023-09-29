@@ -1,17 +1,23 @@
 import React, { useState } from 'react'
+import { db } from '../../../../firebase'
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
 
 const AddDrop = () => {
-  const prebuiltTags = [
+  const [snippetName, setSnippetName] = useState('')
+  const [codeBlock, setCodeBlock] = useState('')
+  const [description, setDescription] = useState('')
+  const [selectedTags, setSelectedTags] = useState([])
+
+  const Tags = [
     'JavaScript',
     'React',
-    'Node.js',
+    'Nodejs',
     'HTML',
     'CSS',
-    'Tailwind CSS',
-    'Redux',
-    'TypeScript',
+    'TailwindCSS',
+    'MongoDB',
+    'Flutter',
   ]
-  const [selectedTags, setSelectedTags] = useState([])
 
   const handleTagToggle = (tag) => {
     if (selectedTags.includes(tag)) {
@@ -20,24 +26,46 @@ const AddDrop = () => {
       setSelectedTags([...selectedTags, tag])
     }
   }
+
+  const handleAddDrop = async () => {
+    let authorname = localStorage.getItem('authorid')
+    let authorid = localStorage.getItem('authorname')
+    try {
+      const docRef = await addDoc(collection(db, 'drops'), {
+        snippetName: snippetName,
+        codeBlock: codeBlock,
+        description: description,
+        tags: selectedTags,
+        author: authorname,
+        authorid: authorid,
+      })
+      console.log('Document written with ID: ', docRef.id)
+    } catch (e) {
+      console.error('Error adding document: ', e)
+    }
+  }
+
   return (
     <div className='container mx-auto p-4'>
       <center className='self-center text-3xl mb-5 font-bold text-green-900'>
         <b>Add Drop</b>
       </center>
-      <form className='max-w-md mx-auto bg-green-200 p-6 rounded-md shadow-md'>
+      <form className='max-w-2xl mx-auto bg-green-200 p-6 rounded-md shadow-md'>
         <div className='mb-4'>
           <label
             htmlFor='snippetName'
             className='block text-sm font-bold text-green-900'
           >
-            Snippet Name
+            Drop Name
           </label>
           <input
             type='text'
             id='snippetName'
             name='snippetName'
-            className='mt-1 p-2 w-full border rounded-md bg-green-50'
+            onChange={(e) => {
+              setSnippetName(e.target.value)
+            }}
+            className='mt-1 p-2 w-full  outline-none rounded-md bg-green-50'
           />
         </div>
         <div className='mb-4'>
@@ -45,28 +73,17 @@ const AddDrop = () => {
             htmlFor='codeBlock'
             className='block text-sm font-bold text-green-900'
           >
-            Code Block
+            Drop Block
           </label>
           <textarea
             id='codeBlock'
             name='codeBlock'
             rows='6'
-            className='mt-1 p-2 w-full border rounded-md bg-green-50'
+            onChange={(e) => {
+              setCodeBlock(e.target.value)
+            }}
+            className='mt-1 p-2 w-full outline-none rounded-md bg-green-50'
           ></textarea>
-        </div>
-        <div className='mb-4'>
-          <label
-            htmlFor='codeName'
-            className='block text-sm font-bold text-green-900'
-          >
-            Source Code Name
-          </label>
-          <input
-            type='text'
-            id='codeName'
-            name='codeName'
-            className='mt-1 p-2 w-full border rounded-md bg-green-50'
-          />
         </div>
         <div className='mb-4'>
           <label
@@ -79,7 +96,10 @@ const AddDrop = () => {
             id='description'
             name='description'
             rows='4'
-            className='mt-1 p-2 w-full border rounded-md bg-green-50'
+            onChange={(e) => {
+              setDescription(e.target.value)
+            }}
+            className='mt-1 p-2 w-full outline-none rounded-md bg-green-50'
           ></textarea>
         </div>
 
@@ -91,15 +111,15 @@ const AddDrop = () => {
             Tags
           </label>
           <div className='flex flex-wrap'>
-            {prebuiltTags.map((tag) => (
+            {Tags.map((tag) => (
               <div
                 key={tag}
                 onClick={() => handleTagToggle(tag)}
-                className={`cursor-pointer rounded-full border px-3 py-1 m-2 
+                className={`cursor-pointer border border-green-900 rounded-full  px-3 py-1 m-2 
                         ${
                           selectedTags.includes(tag)
                             ? 'bg-green-900 text-green-100'
-                            : 'border-green-900 text-green-900'
+                            : '-green-900 text-green-900'
                         }`}
               >
                 {tag}
@@ -108,7 +128,8 @@ const AddDrop = () => {
           </div>
           <div className='flex items-center justify-end'>
             <button
-              type='submit'
+              type='button'
+              onClick={handleAddDrop}
               className='bg-green-700 mt-4 hover:bg-green-800 font-bold text-green-100 py-2 px-4 rounded-full'
             >
               Add Drop

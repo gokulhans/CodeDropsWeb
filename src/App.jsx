@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <Navbar isAuth={isAuth} setIsAuth={setIsAuth} />
-      <div className="flex flex-col justify-start min-h-fit sm:items-center sm:p-5 bg-green-100">
+      <div className="flex flex-col justify-start min-h-fit sm:items-center sm:p-5 bg-green-100 mt-16">
         <Routes>
           {!isAuth ? (
             <>

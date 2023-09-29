@@ -13,7 +13,7 @@ function Navbar({ isAuth, setIsAuth }) {
   }
 
   return (
-    <nav className='bg-green-900 border-green-200 px-5  sm:px-4 py-4'>
+    <nav className='bg-green-900 border-green-200 px-5 fixed top-0 w-full h-16 flex justify-self-center sm:px-4'>
       <div className='container flex flex-wrap justify-between items-center mx-auto'>
         <Link to={'/'} className='flex items-center'>
           {/* <img src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" className="mr-3 h-6 sm:h-9" alt="Flowbite Logo"/> */}
@@ -26,13 +26,13 @@ function Navbar({ isAuth, setIsAuth }) {
             <div className='flex'>
               <Link
                 to={'/add'}
-                class='bg-green-700 hover:bg-green-800 font-bold text-green-100 py-2 px-4 rounded-full'
+                className='bg-green-700 hover:bg-green-800 font-bold text-green-100 py-2 px-4 rounded-full'
               >
                 Add Drop
               </Link>
               <button
                 onClick={signUserOut}
-                class='ml-2 bg-green-700 hover:bg-green-800 font-bold text-green-100 py-2 px-4 rounded-full'
+                className='ml-2 bg-green-700 hover:bg-green-800 font-bold text-green-100 py-2 px-4 rounded-full'
               >
                 Logout
               </button>

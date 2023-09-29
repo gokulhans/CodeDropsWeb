@@ -15,7 +15,7 @@ const Login = ({ setIsAuth }) => {
   }
   return (
     <>
-      <div className='w-screen flex justify-center mt-32'>
+      <div className='w-screen flex justify-center min-h-screen'>
         <div className='h-48 items-center'>
           <div className='mx-auto'>
             <div className=' p-4 md:p-8'>
