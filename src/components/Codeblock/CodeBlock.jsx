@@ -80,7 +80,7 @@ const CodeBlock = ({
       </div>
       <p className="text-green-600 text-xs">{description}</p>
       <div className="flex items-center justify-start">
-        <p className="text-yellow-600 mt-2 text-xs">Made with ❤️ by {authorname}</p>
+        <p className="text-yellow-600 mt-2 text-xs">Crafted with ❤️ by {authorname}</p>
       </div>
     </div>
   );
