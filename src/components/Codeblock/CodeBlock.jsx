@@ -5,7 +5,7 @@ import { db } from "../../../firebase";
 
 const CodeBlock = ({
   snippetName,
-  codeBlock,
+  codeBlock, 
   tags,
   authorname,
   authorid,
