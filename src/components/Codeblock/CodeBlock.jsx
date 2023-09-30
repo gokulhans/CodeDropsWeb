@@ -1,12 +1,32 @@
 import React, { useState } from "react";
 import Toast from "../Toast/Toast";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../../firebase";
 
-const CodeBlock = ({ snippetName, codeBlock, tags, onCopy, description }) => {
+const CodeBlock = ({
+  snippetName,
+  codeBlock,
+  tags,
+  authorname,
+  authorid,
+  blockid,
+  description,
+}) => {
   const [isCopied, setIsCopied] = useState(false);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(codeBlock);
     setIsCopied(true);
+  };
+
+  const handleDelete = async () => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this code block?"
+    );
+    if (isConfirmed) {
+      await deleteDoc(doc(db, "drops", blockid));
+      window.location.pathname = "/";
+    }
   };
 
   const closeToast = () => {
@@ -18,18 +38,20 @@ const CodeBlock = ({ snippetName, codeBlock, tags, onCopy, description }) => {
       <div className="flex items-center mb-2">
         <h2 className="text-xl font-semibold mb-2">{snippetName}</h2>
         <div className="ml-auto mb-2   space-x-2">
-          <button
+          {/* <button
             onClick={handleCopy}
             className="font-bold text-sm text-blue-600"
           >
             {!isCopied && "Edit"}
-          </button>
-          <button
-            onClick={handleCopy}
-            className="font-bold text-sm text-red-600"
-          >
-            {!isCopied && "Delete"}
-          </button>
+          </button> */}
+          {authorid == localStorage.getItem("authorid") && (
+            <button
+              onClick={handleDelete}
+              className="font-bold text-sm text-red-600"
+            >
+              Delete
+            </button>
+          )}
           <button
             onClick={handleCopy}
             className="font-bold text-sm text-green-700"
@@ -57,6 +79,9 @@ const CodeBlock = ({ snippetName, codeBlock, tags, onCopy, description }) => {
         </div>
       </div>
       <p className="text-green-600 text-xs">{description}</p>
+      <div className="flex items-center justify-start">
+        <p className="text-yellow-600 mt-2 text-xs"> © {authorname}</p>
+      </div>
     </div>
   );
 };
@@ -68,10 +93,10 @@ const CodeBlocksList = ({ codeBlocks }) => {
     setSearchTerm(event.target.value);
   };
 
-  // Filter codeBlocks based on the search term
   const filteredCodeBlocks = codeBlocks.filter((block) =>
     block.data.snippetName.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
   return (
     <div className="container mx-auto p-4 max-w-4xl">
       <center className="self-center text-3xl mb-5 font-bold text-green-900">
@@ -93,6 +118,9 @@ const CodeBlocksList = ({ codeBlocks }) => {
           tags={block.data.tags}
           onCopy={() => handleCopy(block.data.codeBlock)}
           description={block.data.description}
+          authorid={block.data.authorid}
+          authorname={block.data.authorname}
+          blockid={block.id}
         />
       ))}
     </div>
