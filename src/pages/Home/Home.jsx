@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase";
-import CodeBlocksList from "../../components/codeblock/CodeBlock";
+import CodeBlocksList from "../../components/Codeblock/CodeBlock";
 
 const Home = () => {
   const [drops, setDrops] = useState([]);
