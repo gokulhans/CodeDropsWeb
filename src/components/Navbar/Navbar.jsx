@@ -36,6 +36,11 @@ function Navbar({ isAuth, setIsAuth }) {
               >
                 Logout
               </button>
+              <button
+                className='ml-2 bg-green-700 hover:bg-green-800 font-bold text-green-100 py-2 px-4 rounded-full'
+              >
+                {localStorage.getItem("authorname")}
+              </button>
             </div>
           )}
         </div>
