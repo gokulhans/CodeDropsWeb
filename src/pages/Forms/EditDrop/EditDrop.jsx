@@ -177,7 +177,7 @@ const EditDrop = () => {
 
           <div className="flex items-end justify-between">
             <p className="text-yellow-600 text-xs">
-              Crafted with ❤️ by <b> {localStorage.getItem("authorname")}</b>
+              Crafted with 💚 by <b> {localStorage.getItem("authorname")}</b>
             </p>
             <button
               type="button"

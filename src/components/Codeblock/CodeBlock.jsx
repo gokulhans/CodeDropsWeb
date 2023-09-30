@@ -94,7 +94,7 @@ const CodeBlock = ({
 
       <div className="flex items-center justify-start">
         <p className="text-yellow-600 mt-2 text-xs">
-          Crafted with ❤️ by {authorname}
+          Crafted with 💚 by {authorname}
         </p>
       </div>
     </div>
