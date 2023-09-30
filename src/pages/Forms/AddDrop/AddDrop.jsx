@@ -53,7 +53,7 @@ const AddDrop = () => {
       <center className="self-center text-3xl mb-5 font-bold text-green-900">
         <b>Add Drop</b>
       </center>
-      <form className="max-w-2xl mx-auto bg-green-200 p-6 rounded-md shadow-md">
+      <form className="max-w-2xl mx-auto bg-green-200 px-6 pt-6 pb-2 rounded-md shadow-md">
         <div className="mb-4">
           <label
             htmlFor="snippetName"
@@ -88,6 +88,19 @@ const AddDrop = () => {
             className="mt-1 p-2 w-full outline-none rounded-md bg-green-50"
           ></textarea>
         </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="codeBlock"
+            className="block text-sm font-bold text-green-900"
+          >
+            Preview
+          </label>
+          <pre className="text-xs   rounded-md p-2 overflow-x-auto ">
+            {codeBlock}
+          </pre>
+        </div>
+
         <div className="mb-4">
           <label
             htmlFor="description"
@@ -129,7 +142,11 @@ const AddDrop = () => {
               </div>
             ))}
           </div>
-          <div className="flex items-center justify-end">
+
+          <div className="flex items-end justify-between">
+            <p className="text-yellow-600 text-xs">
+              Crafted with ❤️ by <b> {localStorage.getItem("authorname")}</b>
+            </p>
             <button
               type="button"
               onClick={handleAddDrop}

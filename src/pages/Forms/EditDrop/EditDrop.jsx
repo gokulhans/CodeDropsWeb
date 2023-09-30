@@ -122,6 +122,18 @@ const EditDrop = () => {
         </div>
         <div className="mb-4">
           <label
+            htmlFor="codeBlock"
+            className="block text-sm font-bold text-green-900"
+          >
+            Preview
+          </label>
+          <pre className="text-xs   rounded-md p-2 overflow-x-auto ">
+            {codeBlock}
+          </pre>
+        </div>
+
+        <div className="mb-4">
+          <label
             htmlFor="description"
             className="block text-sm font-bold text-green-900"
           >
@@ -162,7 +174,11 @@ const EditDrop = () => {
               </div>
             ))}
           </div>
-          <div className="flex items-center justify-end">
+
+          <div className="flex items-end justify-between">
+            <p className="text-yellow-600 text-xs">
+              Crafted with ❤️ by <b> {localStorage.getItem("authorname")}</b>
+            </p>
             <button
               type="button"
               onClick={handleEditDrop}
