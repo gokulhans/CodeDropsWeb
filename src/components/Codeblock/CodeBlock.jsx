@@ -12,6 +12,11 @@ const CodeBlock = ({
   blockid,
   description,
 }) => {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const highlightedDescription = description.replace(urlRegex, (url) => {
+    return `<a href="${url}" style="color: blue; text-decoration: underline;" target="_blank">${url}</a>`;
+  });
+
   const [isCopied, setIsCopied] = useState(false);
 
   const handleCopy = () => {
@@ -78,9 +83,15 @@ const CodeBlock = ({
           ))}
         </div>
       </div>
-      <p className="text-green-600 text-xs">{description}</p>
+      <p
+        className="text-green-600 text-xs"
+        dangerouslySetInnerHTML={{ __html: highlightedDescription }}
+      />
+
       <div className="flex items-center justify-start">
-        <p className="text-yellow-600 mt-2 text-xs">Crafted with ❤️ by {authorname}</p>
+        <p className="text-yellow-600 mt-2 text-xs">
+          Crafted with ❤️ by {authorname}
+        </p>
       </div>
     </div>
   );
