@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Toast from "../Toast/Toast";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase";
+import { Link } from "react-router-dom";
 
 const CodeBlock = ({
   snippetName,
@@ -43,19 +44,22 @@ const CodeBlock = ({
       <div className="flex items-center mb-2">
         <h2 className="text-xl font-semibold mb-2">{snippetName}</h2>
         <div className="ml-auto mb-2   space-x-2">
-          {/* <button
-            onClick={handleCopy}
-            className="font-bold text-sm text-blue-600"
-          >
-            {!isCopied && "Edit"}
-          </button> */}
           {authorid == localStorage.getItem("authorid") && (
-            <button
-              onClick={handleDelete}
-              className="font-bold text-sm text-red-600"
-            >
-              Delete
-            </button>
+            <>
+              <Link
+                to={`edit/${blockid}`}
+                onClick={handleCopy}
+                className="font-bold text-sm text-blue-600"
+              >
+                Edit
+              </Link>
+              <button
+                onClick={handleDelete}
+                className="font-bold text-sm text-red-600"
+              >
+                Delete
+              </button>
+            </>
           )}
           <button
             onClick={handleCopy}

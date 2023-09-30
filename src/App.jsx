@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Navbar from "./components/Navbar/Navbar";
 import AddDrop from "./pages/Forms/AddDrop/AddDrop";
+import EditDrop from "./pages/Forms/EditDrop/EditDrop";
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
@@ -22,6 +23,7 @@ function App() {
               <Route exact path="/" element={<Home />} />
               <Route path="/login" element={<Home />} />
               <Route path="/add" element={<AddDrop />} />
+              <Route path="/edit/:id" element={<EditDrop />} />
               <Route path="*" element={<h1>Error Page</h1>} />
             </>
           )}
