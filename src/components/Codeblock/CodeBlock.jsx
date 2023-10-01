@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Toast from "../Toast/Toast";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase";
@@ -21,6 +21,7 @@ const CodeBlock = ({
   });
 
   const [isCopied, setIsCopied] = useState(false);
+  const [isShared, setIsShared] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
   const handleReadMore = () => {
@@ -31,6 +32,18 @@ const CodeBlock = ({
     navigator.clipboard.writeText(codeBlock);
     setIsCopied(true);
   };
+
+  const handleShare = () => {
+    navigator.clipboard.writeText(
+      `https://codedrops.xyz/drop/${blockid}/${generateSlug(snippetName)}`
+    );
+    setIsShared(true);
+  };
+
+  function generateSlug(snippetName) {
+    const slug = snippetName.toLowerCase().replace(/\s+/g, "-");
+    return slug;
+  }
 
   const handleDelete = async () => {
     const isConfirmed = window.confirm(
@@ -44,23 +57,30 @@ const CodeBlock = ({
 
   const closeToast = () => {
     setIsCopied(false);
+    setIsShared(false)
   };
 
   return (
     <div className="bg-green-200 rounded-lg p-4 shadow mb-4">
       <div className="flex items-center mb-2">
-        <h2 className="text-xl font-semibold mb-2">{snippetName}</h2>
+        <Link to={`drop/${blockid}/${generateSlug(snippetName)}`}>
+          <h2 className="text-xl font-semibold mb-2">{snippetName}</h2>
+        </Link>
         <div className="ml-auto mb-2   space-x-2">
+          {!hideview && (
+            <button
+              onClick={handleShare}
+              className="font-bold text-sm text-gray-600"
+            >
+              {" "}
+              {!isShared && "Share"}
+              {isShared && (
+                <Toast message="Link copied to clipboard!" onClose={closeToast} />
+              )}
+            </button>
+          )}
           {authorid == localStorage.getItem("authorid") && (
             <>
-              {!hideview && (
-                <Link
-                  to={`drop/${blockid}/${snippetName}`}
-                  className="font-bold text-sm text-gray-600"
-                >
-                  View
-                </Link>
-              )}
               <Link
                 to={`edit/${blockid}`}
                 className="font-bold text-sm text-blue-600"
@@ -104,12 +124,12 @@ const CodeBlock = ({
       <div className="my-5">
         {isExpanded || expand ? (
           <p
-            className="text-green-600 text-sm whitespace-pre-line"
+            className="text-green-600 text-md whitespace-pre-line"
             dangerouslySetInnerHTML={{ __html: highlightedDescription }}
           />
         ) : (
           <p
-            className="text-green-600 text-sm whitespace-pre-line line-clamp-3"
+            className="text-green-600 text-md whitespace-pre-line line-clamp-3"
             dangerouslySetInnerHTML={{ __html: highlightedDescription }}
           />
         )}
