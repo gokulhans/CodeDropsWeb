@@ -12,6 +12,8 @@ const CodeBlock = ({
   authorid,
   blockid,
   description,
+  hideview,
+  expand,
 }) => {
   const urlRegex = /(https?:\/\/[^\s]+)/g;
   const highlightedDescription = description.replace(urlRegex, (url) => {
@@ -51,9 +53,16 @@ const CodeBlock = ({
         <div className="ml-auto mb-2   space-x-2">
           {authorid == localStorage.getItem("authorid") && (
             <>
+              {!hideview && (
+                <Link
+                  to={`drop/${blockid}/${snippetName}`}
+                  className="font-bold text-sm text-gray-600"
+                >
+                  View
+                </Link>
+              )}
               <Link
                 to={`edit/${blockid}`}
-                onClick={handleCopy}
                 className="font-bold text-sm text-blue-600"
               >
                 Edit
@@ -93,7 +102,7 @@ const CodeBlock = ({
         </div>
       </div>
       <div className="my-5">
-        {isExpanded ? (
+        {isExpanded || expand ? (
           <p
             className="text-green-600 text-sm whitespace-pre-line"
             dangerouslySetInnerHTML={{ __html: highlightedDescription }}
@@ -110,57 +119,18 @@ const CodeBlock = ({
         <p className="text-yellow-600 mt-2 text-xs">
           Crafted with 💚 by {authorname}
         </p>
-        <button
-          onClick={handleReadMore}
-          to={"drop/id"}
-          className="text-yellow-600 mt-2 text-xs cursor-pointer"
-        >
-          {!isExpanded ? "See More.." : "Show Less"}
-        </button>
+        {!expand && (
+          <button
+            onClick={handleReadMore}
+            to={"drop/id"}
+            className="text-yellow-600 mt-2 text-xs cursor-pointer"
+          >
+            {!isExpanded ? "See More.." : "Show Less"}
+          </button>
+        )}
       </div>
     </div>
   );
 };
 
-const CodeBlocksList = ({ codeBlocks }) => {
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const filteredCodeBlocks = codeBlocks.filter((block) =>
-    block.data.snippetName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  return (
-    <div className="container mx-auto p-4 max-w-4xl">
-      <center className="self-center text-3xl mb-5 font-bold text-green-900">
-        <b>Code Drops</b>
-      </center>
-      <input
-        type="text"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={handleSearch}
-        className="mb-4 p-2 rounded border bg-green-50 outline-green-900 border-green-900 w-full"
-      />
-
-      {filteredCodeBlocks.map((block, index) => (
-        <CodeBlock
-          key={index}
-          snippetName={block.data.snippetName}
-          codeBlock={block.data.codeBlock}
-          tags={block.data.tags}
-          onCopy={() => handleCopy(block.data.codeBlock)}
-          description={block.data.description}
-          authorid={block.data.authorid}
-          authorname={block.data.authorname}
-          blockid={block.id}
-        />
-      ))}
-    </div>
-  );
-};
-
-export default CodeBlocksList;
+export default CodeBlock;
