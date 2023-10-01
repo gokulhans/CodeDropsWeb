@@ -42,6 +42,7 @@ const EditDrop = () => {
     "Nodejs",
     "HTML",
     "CSS",
+    "Style",
     "TailwindCSS",
     "MongoDB",
     "Flutter",

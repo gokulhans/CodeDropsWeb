@@ -14,6 +14,7 @@ const AddDrop = () => {
     "Nodejs",
     "HTML",
     "CSS",
+    "Style",
     "TailwindCSS",
     "MongoDB",
     "Flutter",

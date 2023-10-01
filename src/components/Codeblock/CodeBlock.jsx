@@ -19,6 +19,11 @@ const CodeBlock = ({
   });
 
   const [isCopied, setIsCopied] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleReadMore = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   const handleCopy = () => {
     navigator.clipboard.writeText(codeBlock);
@@ -87,15 +92,31 @@ const CodeBlock = ({
           ))}
         </div>
       </div>
-      <p
-        className="text-green-600 text-xs"
-        dangerouslySetInnerHTML={{ __html: highlightedDescription }}
-      />
+      <div className="my-5">
+        {isExpanded ? (
+          <p
+            className="text-green-600 text-sm whitespace-pre-line"
+            dangerouslySetInnerHTML={{ __html: highlightedDescription }}
+          />
+        ) : (
+          <p
+            className="text-green-600 text-sm whitespace-pre-line line-clamp-3"
+            dangerouslySetInnerHTML={{ __html: highlightedDescription }}
+          />
+        )}
+      </div>
 
-      <div className="flex items-center justify-start">
+      <div className="flex items-center justify-between">
         <p className="text-yellow-600 mt-2 text-xs">
           Crafted with 💚 by {authorname}
         </p>
+        <button
+          onClick={handleReadMore}
+          to={"drop/id"}
+          className="text-yellow-600 mt-2 text-xs cursor-pointer"
+        >
+          {!isExpanded ? "See More.." : "Show Less"}
+        </button>
       </div>
     </div>
   );
