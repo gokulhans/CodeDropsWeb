@@ -45,7 +45,12 @@ const EditDrop = () => {
     "TailwindCSS",
     "MongoDB",
     "Flutter",
-    "PHP",
+    "php",
+    "ajax",
+    "jquery",
+    "bootstrap",
+    "sass",
+    "laravel",
   ];
 
   const handleTagToggle = (tag) => {
