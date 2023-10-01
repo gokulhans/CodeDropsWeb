@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../../firebase";
 import CodeBlocksList from "../../components/Codeblock/CodeBlockList";
 
-const Home = () => {
+const MyProfile = () => {
   const [drops, setDrops] = useState([]);
 
   useEffect(() => {
-    getDrops();
+    getDropsByAuthor();
   }, []);
 
-  async function getDrops() {
-    const querySnapshot = await getDocs(collection(db, "drops"));
+  async function getDropsByAuthor() {
+    const dropsRef = collection(db, "drops");
+    const q = query(
+      dropsRef,
+      where("authorid", "==", localStorage.getItem("authorid"))
+    );
+    const querySnapshot = await getDocs(q);
     const dropsArray = [];
     querySnapshot.forEach((doc) => {
       const dropData = {
@@ -25,9 +30,9 @@ const Home = () => {
 
   return (
     <div className="min-h-screen flex align-center justify-self-center">
-      <CodeBlocksList codeBlocks={drops} title={"Code Drops"}/>
+      <CodeBlocksList codeBlocks={drops} title={"My Drops"}  />
     </div>
   );
 };
 
-export default Home;
+export default MyProfile;

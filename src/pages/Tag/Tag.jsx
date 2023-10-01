@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../../firebase";
 import CodeBlocksList from "../../components/Codeblock/CodeBlockList";
+import { useParams } from "react-router-dom";
 
-const Home = () => {
+const Tag = () => {
   const [drops, setDrops] = useState([]);
 
   useEffect(() => {
-    getDrops();
+    getDropsByTag();
   }, []);
 
-  async function getDrops() {
-    const querySnapshot = await getDocs(collection(db, "drops"));
+  const { tag } = useParams();
+
+  async function getDropsByTag() {
+    const dropsRef = collection(db, "drops");
+    const q = query(dropsRef, where("tags", "array-contains", tag));
+    const querySnapshot = await getDocs(q);
     const dropsArray = [];
     querySnapshot.forEach((doc) => {
       const dropData = {
@@ -25,9 +30,9 @@ const Home = () => {
 
   return (
     <div className="min-h-screen flex align-center justify-self-center">
-      <CodeBlocksList codeBlocks={drops} title={"Code Drops"}/>
+          <CodeBlocksList codeBlocks={drops} title={`${tag} Drops`} />
     </div>
   );
 };
 
-export default Home;
+export default Tag;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CodeBlock from "./CodeBlock";
 
-const CodeBlocksList = ({ codeBlocks }) => {
+const CodeBlocksList = ({ codeBlocks,title }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = (event) => {
@@ -15,11 +15,11 @@ const CodeBlocksList = ({ codeBlocks }) => {
   return (
     <div className="container mx-auto p-4 max-w-4xl">
       <center className="self-center text-3xl mb-5 font-bold text-green-900">
-        <b>Code Drops</b>
+        <b>{title}</b>
       </center>
       <input
         type="text"
-        placeholder="Search..."
+        placeholder={"Search"+ " " +title + "..."}
         value={searchTerm}
         onChange={handleSearch}
         className="mb-4 p-2 rounded border bg-green-50 outline-green-900 border-green-900 w-full"

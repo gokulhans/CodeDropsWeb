@@ -57,7 +57,7 @@ const CodeBlock = ({
 
   const closeToast = () => {
     setIsCopied(false);
-    setIsShared(false)
+    setIsShared(false);
   };
 
   return (
@@ -75,7 +75,10 @@ const CodeBlock = ({
               {" "}
               {!isShared && "Share"}
               {isShared && (
-                <Toast message="Link copied to clipboard!" onClose={closeToast} />
+                <Toast
+                  message="Link copied to clipboard!"
+                  onClose={closeToast}
+                />
               )}
             </button>
           )}
@@ -112,12 +115,13 @@ const CodeBlock = ({
       <div className="flex items-center mb-2">
         <div className="flex space-x-2 mt-2">
           {tags.map((tag, index) => (
-            <span
+            <Link
+              to={`/tag/${tag}`}
               key={index}
               className="bg-green-700 text-green-50 py-1 px-2 rounded-full text-xs"
             >
               {tag}
-            </span>
+            </Link>
           ))}
         </div>
       </div>
@@ -136,9 +140,12 @@ const CodeBlock = ({
       </div>
 
       <div className="flex items-center justify-between">
-        <p className="text-yellow-600 mt-2 text-xs">
+        <Link
+          to={`/profile/${authorid}/${authorname}`}
+          className="text-yellow-600 mt-2 text-xs"
+        >
           Crafted with 💚 by {authorname}
-        </p>
+        </Link>
         {!expand && (
           <button
             onClick={handleReadMore}

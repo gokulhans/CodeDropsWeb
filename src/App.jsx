@@ -6,6 +6,9 @@ import Navbar from "./components/Navbar/Navbar";
 import AddDrop from "./pages/Forms/AddDrop/AddDrop";
 import EditDrop from "./pages/Forms/EditDrop/EditDrop";
 import ViewDrop from "./pages/ViewDrop/ViewDrop";
+import MyProfile from "./pages/MyProfile/MyProfile";
+import Tag from "./pages/Tag/Tag";
+import Profile from "./pages/Profile/Profile";
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
@@ -23,6 +26,12 @@ function App() {
               <Route exact path="/" element={<Home />} />
               <Route path="/login" element={<Home />} />
               <Route path="/add" element={<AddDrop />} />
+              <Route path="/myprofile" element={<MyProfile />} />
+              <Route
+                path="/profile/:authorid/:authorname"
+                element={<Profile />}
+              />
+              <Route path="/tag/:tag" element={<Tag />} />
               <Route path="/edit/:id" element={<EditDrop />} />
               <Route path="/drop/:id/:drop" element={<ViewDrop />} />
               <Route path="*" element={<h1>Error Page</h1>} />
