@@ -17,12 +17,12 @@ const AddDrop = () => {
     "TailwindCSS",
     "MongoDB",
     "Flutter",
-    "php",
-    "ajax",
-    "jquery",
-    "bootstrap",
-    "sass",
-    "laravel",
+    "Php",
+    "Ajax",
+    "Jquery",
+    "Bootstrap",
+    "Sass",
+    "Laravel",
   ];
 
   const handleTagToggle = (tag) => {
