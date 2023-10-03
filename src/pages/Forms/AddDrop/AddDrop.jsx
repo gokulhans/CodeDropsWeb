@@ -24,6 +24,7 @@ const AddDrop = () => {
     "Bootstrap",
     "Sass",
     "Laravel",
+    "TypeScript",
   ];
 
   const handleTagToggle = (tag) => {

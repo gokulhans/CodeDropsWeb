@@ -52,6 +52,7 @@ const EditDrop = () => {
     "Bootstrap",
     "Sass",
     "Laravel",
+    "TypeScript",
   ];
 
   const handleTagToggle = (tag) => {
