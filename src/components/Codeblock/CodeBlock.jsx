@@ -45,7 +45,7 @@ const CodeBlock = ({
     return slug;
   }
 
-  let navigate = useNavigate()
+  // let navigate = useNavigate()
 
   const handleDelete = async () => {
     const isConfirmed = window.confirm(
@@ -53,7 +53,7 @@ const CodeBlock = ({
     );
     if (isConfirmed) {
       await deleteDoc(doc(db, "drops", blockid));
-      navigate("/");
+      window.location.reload();
     }
   };
 
