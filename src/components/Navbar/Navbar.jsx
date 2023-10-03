@@ -1,14 +1,16 @@
 import { signOut } from "firebase/auth";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../../firebase";
 
 function Navbar({ isAuth, setIsAuth }) {
+  let navigate = useNavigate();
   const signUserOut = () => {
     signOut(auth).then(() => {
       localStorage.clear();
       setIsAuth(false);
-      window.location.pathname = "/login";
+      navigate("/");
+      // window.location.pathname = "/login";
     });
   };
 
@@ -36,7 +38,10 @@ function Navbar({ isAuth, setIsAuth }) {
               >
                 Logout
               </button>
-              <Link to={"/myprofile"} className="ml-2 bg-green-700 hover:bg-green-800 font-bold text-green-100 py-2 px-4 rounded-full">
+              <Link
+                to={"/myprofile"}
+                className="ml-2 bg-green-700 hover:bg-green-800 font-bold text-green-100 py-2 px-4 rounded-full"
+              >
                 {localStorage.getItem("authorname")}
               </Link>
               <a

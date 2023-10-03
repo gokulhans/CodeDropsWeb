@@ -8,7 +8,7 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditDrop = () => {
   const [snippetName, setSnippetName] = useState("");
@@ -66,6 +66,8 @@ const EditDrop = () => {
     }
   };
 
+  let navigate = useNavigate()
+
   const handleEditDrop = async () => {
     let authorid = localStorage.getItem("authorid");
     let authorname = localStorage.getItem("authorname");
@@ -80,7 +82,8 @@ const EditDrop = () => {
         authorid: authorid,
       });
       console.log("Document written with ID: ", dropsRef.id);
-      window.location.pathname = "/";
+      navigate("/");
+      // window.location.pathname = "/";
     } catch (e) {
       console.error("Error adding document: ", e);
     }

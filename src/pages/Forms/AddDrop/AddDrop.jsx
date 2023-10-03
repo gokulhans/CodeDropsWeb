@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { db } from "../../../../firebase";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const AddDrop = () => {
   const [snippetName, setSnippetName] = useState("");
@@ -38,6 +39,8 @@ const AddDrop = () => {
     }
   };
 
+  let navigate = useNavigate();
+
   const handleAddDrop = async () => {
     let authorid = localStorage.getItem("authorid");
     let authorname = localStorage.getItem("authorname");
@@ -51,7 +54,8 @@ const AddDrop = () => {
         authorid: authorid,
       });
       console.log("Document written with ID: ", docRef.id);
-      window.location.pathname = "/";
+      // window.location.pathname = "/";
+      navigate("/");
     } catch (e) {
       console.error("Error adding document: ", e);
     }

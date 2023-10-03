@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Toast from "../Toast/Toast";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CodeBlock = ({
   snippetName,
@@ -45,13 +45,15 @@ const CodeBlock = ({
     return slug;
   }
 
+  let navigate = useNavigate()
+
   const handleDelete = async () => {
     const isConfirmed = window.confirm(
       "Are you sure you want to delete this code block?"
     );
     if (isConfirmed) {
       await deleteDoc(doc(db, "drops", blockid));
-      window.location.pathname = "/";
+      navigate("/");
     }
   };
 
