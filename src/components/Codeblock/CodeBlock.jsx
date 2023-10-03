@@ -63,7 +63,7 @@ const CodeBlock = ({
   return (
     <div className="bg-green-200 rounded-lg p-4 shadow mb-4">
       <div className="flex items-center mb-2">
-        <Link to={`drop/${blockid}/${generateSlug(snippetName)}`}>
+        <Link to={`#/drop/${blockid}/${generateSlug(snippetName)}`}>
           <h2 className="text-xl font-semibold mb-2">{snippetName}</h2>
         </Link>
         <div className="ml-auto mb-2   space-x-2">
