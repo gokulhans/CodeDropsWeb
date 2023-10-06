@@ -132,7 +132,7 @@ const CodeBlock = ({
             <Link
               to={`/tag/${tag}`}
               key={index}
-              className="bg-green-700 text-green-50 py-1 px-2 rounded-full text-xs"
+              className="bg-green-600 text-green-50 py-1 px-2 rounded-full text-xs"
             >
               {tag}
             </Link>
