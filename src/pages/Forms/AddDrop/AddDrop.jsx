@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { db } from "../../../../firebase";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { Editor } from "@tinymce/tinymce-react";
+import { useRef } from "react";
 
 const AddDrop = () => {
   const [snippetName, setSnippetName] = useState("");
   const [codeBlock, setCodeBlock] = useState("");
   const [description, setDescription] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
+
+  const editorRef = useRef(null);
 
   const Tags = [
     "JavaScript",
@@ -44,11 +48,14 @@ const AddDrop = () => {
   const handleAddDrop = async () => {
     let authorid = localStorage.getItem("authorid");
     let authorname = localStorage.getItem("authorname");
+    let dropbody;
+    if (editorRef.current) {
+      dropbody = editorRef.current.getContent();
+    }
     try {
       const docRef = await addDoc(collection(db, "drops"), {
         snippetName: snippetName,
-        codeBlock: codeBlock,
-        description: description,
+        description: dropbody,
         tags: selectedTags,
         authorname: authorname,
         authorid: authorid,
@@ -84,7 +91,7 @@ const AddDrop = () => {
             className="mt-1 p-2 w-full  outline-none rounded-md bg-green-50"
           />
         </div>
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label
             htmlFor="codeBlock"
             className="block text-sm font-bold text-green-900"
@@ -130,6 +137,52 @@ const AddDrop = () => {
             }}
             className="mt-1 p-2 w-full outline-none rounded-md bg-green-50"
           ></textarea>
+        </div> */}
+
+        <div className="mb-8">
+          <label
+            htmlFor="description"
+            className="block text-sm font-bold text-green-900 mb-4"
+          >
+            Drop Body
+          </label>
+
+          <Editor
+            apiKey="ybpur08gg4lmql5iocc1t7ekl7yvxz8d36x01g9sxswm6r8r"
+            onInit={(evt, editor) => (editorRef.current = editor)}
+            initialValue="<p>This is the initial content of the editor.</p>"
+            init={{
+              height: 500,
+              menubar: false,
+              plugins: [
+                "advlist",
+                "autolink",
+                "lists",
+                "link",
+                "image",
+                "charmap",
+                "preview",
+                "anchor",
+                "searchreplace",
+                "visualblocks",
+                "code",
+                "fullscreen",
+                "insertdatetime",
+                "media",
+                "table",
+                "code",
+                "help",
+                "wordcount",
+              ],
+              toolbar:
+                "undo redo | blocks | " +
+                "bold italic forecolor | alignleft aligncenter " +
+                "alignright alignjustify | bullist numlist outdent indent | " +
+                "removeformat | help",
+              content_style:
+                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+            }}
+          />
         </div>
 
         <div className="mb-4">
@@ -137,8 +190,9 @@ const AddDrop = () => {
             htmlFor="description"
             className="block text-sm mb-2 font-bold text-green-900"
           >
-            Tags
+            Drop Tags
           </label>
+
           <div className="flex flex-wrap">
             {Tags.map((tag) => (
               <div
@@ -157,7 +211,7 @@ const AddDrop = () => {
           </div>
 
           <div className="flex items-end justify-between">
-            <p className="text-yellow-600 text-xs">
+            <p className="text-orange-900 text-xs">
               Crafted with 💚 by <b> {localStorage.getItem("authorname")}</b>
             </p>
             <button

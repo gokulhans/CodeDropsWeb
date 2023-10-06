@@ -63,7 +63,7 @@ const CodeBlock = ({
   };
 
   return (
-    <div className="bg-green-200 rounded-lg p-4 shadow mb-4">
+    <div className="bg-white rounded-lg p-4 shadow-md mb-4">
       <div className="flex items-center mb-2">
         <Link to={`/drop/${blockid}/${generateSlug(snippetName)}`}>
           <h2 className="text-xl font-semibold mb-2">{snippetName}</h2>
@@ -111,9 +111,21 @@ const CodeBlock = ({
           </button>
         </div>
       </div>
-      <pre className="bg-green-100 p-4 rounded-md mb-2 overflow-x-auto">
-        {codeBlock}
-      </pre>
+
+      <div className="my-5">
+        {isExpanded || expand ? (
+          <p
+            className="text-black-600 text-md whitespace-pre-line"
+            dangerouslySetInnerHTML={{ __html: highlightedDescription }}
+          />
+        ) : (
+          <p
+            className="text-black-600 text-md whitespace-pre-line line-clamp-3"
+            dangerouslySetInnerHTML={{ __html: highlightedDescription }}
+          />
+        )}
+      </div>
+
       <div className="flex items-center mb-2">
         <div className="flex space-x-2 mt-2">
           {tags.map((tag, index) => (
@@ -127,31 +139,18 @@ const CodeBlock = ({
           ))}
         </div>
       </div>
-      <div className="my-5">
-        {isExpanded || expand ? (
-          <p
-            className="text-green-600 text-md whitespace-pre-line"
-            dangerouslySetInnerHTML={{ __html: highlightedDescription }}
-          />
-        ) : (
-          <p
-            className="text-green-600 text-md whitespace-pre-line line-clamp-3"
-            dangerouslySetInnerHTML={{ __html: highlightedDescription }}
-          />
-        )}
-      </div>
 
       <div className="flex items-center justify-between">
         <Link
           to={`/profile/${authorid}/${authorname}`}
-          className="text-yellow-600 mt-2 text-xs"
+          className="text-orange-900 mt-2 text-xs"
         >
           Crafted with 💚 by {authorname}
         </Link>
         {!expand && (
           <button
             onClick={handleReadMore}
-            className="text-yellow-600 mt-2 text-xs cursor-pointer"
+            className="text-orange-900 mt-2 text-xs cursor-pointer"
           >
             {!isExpanded ? "See More.." : "Show Less"}
           </button>

@@ -15,7 +15,7 @@ function Navbar({ isAuth, setIsAuth }) {
   };
 
   return (
-    <nav className="bg-green-900 border-green-200 px-5 fixed top-0 w-full h-16 flex justify-self-center sm:px-4">
+    <nav className="bg-green-900 border-green-200 px-5 fixed top-0 w-full h-16 flex justify-self-center sm:px-4 z-50">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <Link to={"/"} className="flex items-center">
           {/* <img src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" className="mr-3 h-6 sm:h-9" alt="Flowbite Logo"/> */}

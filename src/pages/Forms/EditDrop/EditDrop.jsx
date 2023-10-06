@@ -8,13 +8,16 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
+import { Editor } from "@tinymce/tinymce-react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useRef } from "react";
 
 const EditDrop = () => {
   const [snippetName, setSnippetName] = useState("");
-  const [codeBlock, setCodeBlock] = useState("");
   const [description, setDescription] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
+
+  const editorRef = useRef(null);
 
   useEffect(() => {
     getDrop();
@@ -27,7 +30,6 @@ const EditDrop = () => {
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       console.log("Document data:", docSnap.data());
-      setCodeBlock(docSnap.data().codeBlock);
       setDescription(docSnap.data().description);
       setSnippetName(docSnap.data().snippetName);
       setSelectedTags(docSnap.data().tags);
@@ -66,17 +68,20 @@ const EditDrop = () => {
     }
   };
 
-  let navigate = useNavigate()
+  let navigate = useNavigate();
 
   const handleEditDrop = async () => {
     let authorid = localStorage.getItem("authorid");
     let authorname = localStorage.getItem("authorname");
+    let dropbody;
+    if (editorRef.current) {
+      dropbody = editorRef.current.getContent();
+    }
     try {
       const dropsRef = doc(db, "drops", id);
       await updateDoc(dropsRef, {
         snippetName: snippetName,
-        codeBlock: codeBlock,
-        description: description,
+        description: dropbody,
         tags: selectedTags,
         authorname: authorname,
         authorid: authorid,
@@ -110,56 +115,53 @@ const EditDrop = () => {
               setSnippetName(e.target.value);
             }}
             value={snippetName}
-            className="mt-1 p-2 w-full  outline-none rounded-md bg-green-50"
+            className="mt-1 p-2 w-full  outline-none rounded-md bg-white"
           />
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="codeBlock"
-            className="block text-sm font-bold text-green-900"
-          >
-            Drop Block
-          </label>
-          <textarea
-            id="codeBlock"
-            name="codeBlock"
-            rows="6"
-            onChange={(e) => {
-              setCodeBlock(e.target.value);
-            }}
-            value={codeBlock}
-            className="mt-1 p-2 w-full outline-none rounded-md bg-green-50"
-          ></textarea>
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="codeBlock"
-            className="block text-sm font-bold text-green-900"
-          >
-            Preview
-          </label>
-          <pre className="text-xs   rounded-md p-2 overflow-x-auto ">
-            {codeBlock}
-          </pre>
         </div>
 
         <div className="mb-4">
           <label
             htmlFor="description"
-            className="block text-sm font-bold text-green-900"
+            className="block text-sm font-bold text-green-900 mb-2"
           >
-            Description
+            Drop Body
           </label>
-          <textarea
-            id="description"
-            name="description"
-            rows="4"
-            onChange={(e) => {
-              setDescription(e.target.value);
+          <Editor
+            apiKey="ybpur08gg4lmql5iocc1t7ekl7yvxz8d36x01g9sxswm6r8r"
+            onInit={(evt, editor) => (editorRef.current = editor)}
+            initialValue={description}
+            init={{
+              height: 500,
+              menubar: false,
+              plugins: [
+                "advlist",
+                "autolink",
+                "lists",
+                "link",
+                "image",
+                "charmap",
+                "preview",
+                "anchor",
+                "searchreplace",
+                "visualblocks",
+                "code",
+                "fullscreen",
+                "insertdatetime",
+                "media",
+                "table",
+                "code",
+                "help",
+                "wordcount",
+              ],
+              toolbar:
+                "undo redo | blocks | " +
+                "bold italic forecolor | alignleft aligncenter " +
+                "alignright alignjustify | bullist numlist outdent indent | " +
+                "removeformat | help",
+              content_style:
+                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
             }}
-            value={description}
-            className="mt-1 p-2 w-full outline-none rounded-md bg-green-50"
-          ></textarea>
+          />
         </div>
 
         <div className="mb-4">
@@ -187,7 +189,7 @@ const EditDrop = () => {
           </div>
 
           <div className="flex items-end justify-between">
-            <p className="text-yellow-600 text-xs">
+            <p className="text-orange-900 text-xs">
               Crafted with 💚 by <b> {localStorage.getItem("authorname")}</b>
             </p>
             <button
