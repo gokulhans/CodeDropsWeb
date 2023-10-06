@@ -28,19 +28,19 @@ function Navbar({ isAuth, setIsAuth }) {
             <div className="flex">
               <Link
                 to={"/add"}
-                className="bg-green-500 hover:bg-green-700 font-bold text-green-100 py-2 px-4 rounded-full"
+                className="bg-green-500 bg-opacity-70 hover:bg-green-700 font-bold text-green-100 py-2 px-4 rounded-full"
               >
                 Add Drop
               </Link>
               <button
                 onClick={signUserOut}
-                className="ml-2 bg-green-500 hover:bg-green-700 font-bold text-green-100 py-2 px-4 rounded-full"
+                className="ml-2 bg-green-500 bg-opacity-70 hover:bg-green-700 font-bold text-green-100 py-2 px-4 rounded-full"
               >
                 Logout
               </button>
               <Link
                 to={"/myprofile"}
-                className="ml-2 bg-green-500 hover:bg-green-700 font-bold text-green-100 py-2 px-4 rounded-full"
+                className="ml-2 bg-green-500 bg-opacity-70 hover:bg-green-700 font-bold text-green-100 py-2 px-4 rounded-full"
               >
                 {localStorage.getItem("authorname")}
               </Link>
