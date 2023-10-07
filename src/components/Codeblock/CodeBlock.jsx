@@ -111,20 +111,21 @@ const CodeBlock = ({
           </button>
         </div>
       </div>
-
-      <div className="my-5">
-        {isExpanded || expand ? (
-          <p
-            className="text-black-600 text-md whitespace-pre-line"
-            dangerouslySetInnerHTML={{ __html: highlightedDescription }}
-          />
-        ) : (
-          <p
-            className="text-black-600 text-md whitespace-pre-line line-clamp-3"
-            dangerouslySetInnerHTML={{ __html: highlightedDescription }}
-          />
-        )}
-      </div>
+      <Link to={`/drop/${blockid}/${generateSlug(snippetName)}`}>
+        <div className="my-5">
+          {isExpanded || expand ? (
+            <p
+              className="text-black-600 text-md whitespace-pre-line"
+              dangerouslySetInnerHTML={{ __html: highlightedDescription }}
+            />
+          ) : (
+            <p
+              className="text-black-600 text-md whitespace-pre-line line-clamp-3"
+              dangerouslySetInnerHTML={{ __html: highlightedDescription }}
+            />
+          )}
+        </div>
+      </Link>
 
       <div className="flex items-center mb-2">
         <div className="flex space-x-2 mt-2">
