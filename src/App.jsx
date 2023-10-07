@@ -9,6 +9,7 @@ import ViewDrop from "./pages/ViewDrop/ViewDrop";
 import MyProfile from "./pages/MyProfile/MyProfile";
 import Tag from "./pages/Tag/Tag";
 import Profile from "./pages/Profile/Profile";
+import './App.css'
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
