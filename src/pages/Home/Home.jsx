@@ -40,7 +40,7 @@ const Home = () => {
           </div>
         </>
       ) : (
-        <div className="min-h-screen flex align-center justify-self-center">
+        <div className="min-h-screen flex align-center justify-self-center w-full">
           <CodeBlocksList codeBlocks={drops} title={"Code Drops"} />
         </div>
       )}

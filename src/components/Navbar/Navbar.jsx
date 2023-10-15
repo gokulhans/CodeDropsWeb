@@ -15,7 +15,7 @@ function Navbar({ isAuth, setIsAuth }) {
   };
 
   return (
-    <nav className="bg-green-50 bg-opacity-50 shadow-md border-green-200 px-5 fixed top-0 w-full h-16 flex justify-self-center sm:px-4 z-50">
+    <nav className="bg-gray-50 bg-opacity-50 shadow-md border-gray-200 px-5 fixed top-0 w-full h-16 flex justify-self-center sm:px-4 z-50">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <Link to={"/"} className="flex items-center">
           {/* <img src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" className="mr-3 h-6 sm:h-9" alt="Flowbite Logo"/> */}
@@ -28,26 +28,26 @@ function Navbar({ isAuth, setIsAuth }) {
             <div className="flex">
               <Link
                 to={"/add"}
-                className="bg-green-500 bg-opacity-70 hover:bg-green-700 font-bold text-green-100 py-2 px-4 rounded-full"
+                className="bg-gray-300 bg-opacity-70 hover:bg-gray-400 font-bold text-black-100 py-2 px-4 rounded-full"
               >
                 Add Drop
               </Link>
               <button
                 onClick={signUserOut}
-                className="ml-2 bg-green-500 bg-opacity-70 hover:bg-green-700 font-bold text-green-100 py-2 px-4 rounded-full"
+                className="ml-2 bg-gray-300 bg-opacity-70 hover:bg-gray-400 font-bold text-black-100 py-2 px-4 rounded-full"
               >
                 Logout
               </button>
               <Link
                 to={"/myprofile"}
-                className="ml-2 bg-green-500 bg-opacity-70 hover:bg-green-700 font-bold text-green-100 py-2 px-4 rounded-full"
+                className="ml-2 bg-gray-300 bg-opacity-70 hover:bg-gray-400 font-bold text-black-100 py-2 px-4 rounded-full"
               >
                 {localStorage.getItem("authorname")}
               </Link>
               <a
                 href="https://github.com/gokulhans/CodeDrops"
                 target="_blank"
-                className="ml-2 bg-green-50 rounded-full cursor-pointer"
+                className="ml-2 bg-gray-50 rounded-full cursor-pointer"
               >
                 <img
                   width="40"

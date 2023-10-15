@@ -14,9 +14,9 @@ const CodeBlocksList = ({ codeBlocks, title }) => {
 
   return (
     <div className="container mx-auto p-4 max-w-4xl">
-      <center className="self-center text-3xl mb-5 font-bold text-green-900">
+      {/* <center className="self-center text-3xl mb-5 font-bold text-black">
         <b>{title}</b>
-      </center>
+      </center> */}
       <center>
         <input
           type="text"

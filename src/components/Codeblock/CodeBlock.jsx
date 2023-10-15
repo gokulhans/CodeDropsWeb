@@ -15,10 +15,12 @@ const CodeBlock = ({
   hideview,
   expand,
 }) => {
-  const urlRegex = /(https?:\/\/[^\s]+)/g;
-  const highlightedDescription = description.replace(urlRegex, (url) => {
-    return `<a href="${url}" style="color: blue; text-decoration: underline;" target="_blank">${url}</a>`;
-  });
+
+
+  // const urlRegex = /(https?:\/\/[^\s]+)/g;
+  // const highlightedDescription = description.replace(urlRegex, (url) => {
+  //   return `<a href="${url}" style="color: blue; text-decoration: underline;" target="_blank">${url}</a>`;
+  // });
 
   const [isCopied, setIsCopied] = useState(false);
   const [isShared, setIsShared] = useState(false);
@@ -116,12 +118,12 @@ const CodeBlock = ({
           {isExpanded || expand ? (
             <p
               className="text-black-600 text-md whitespace-pre-line"
-              dangerouslySetInnerHTML={{ __html: highlightedDescription }}
+              dangerouslySetInnerHTML={{ __html: description }}
             />
           ) : (
             <p
               className="text-black-600 text-md whitespace-pre-line line-clamp-3"
-              dangerouslySetInnerHTML={{ __html: highlightedDescription }}
+              dangerouslySetInnerHTML={{ __html: description }}
             />
           )}
         </div>
