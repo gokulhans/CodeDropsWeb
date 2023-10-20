@@ -39,7 +39,7 @@ const ViewDrop = () => {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading ? ( 
         <>
           <div className="w-full max-w-6xl">
             <ShimmerCodeBlock />
@@ -49,7 +49,7 @@ const ViewDrop = () => {
           </div>
         </>
       ) : (
-        <div className="max-w-6xl">
+        <div className="min-h-screen flex align-center justify-self-center w-full max-w-6xl">
           <CodeBlock
             snippetName={snippetName}
             codeBlock={codeBlock}
